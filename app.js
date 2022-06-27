@@ -15,7 +15,7 @@ mongoose
   .connect(dbUrl)
   .then(() => {
     console.log("Connected to database.");
-    app.listen(3000);
+    app.listen(proces.env.PORT);
   })
   .catch((err) => console.log(err));
 
