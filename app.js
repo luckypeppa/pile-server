@@ -18,7 +18,12 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://pile-client.vercel.app/",
+    credentials: true,
+  })
+);
 app.use(morgan("dev"));
 app.use(express.static("public"));
 app.use(express.json());
