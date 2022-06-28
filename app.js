@@ -14,15 +14,16 @@ const dbUrl = process.env.DATABASE_URL;
 mongoose
   .connect(dbUrl)
   .then(() => {
-    app.use(cors());
-    app.use(morgan("dev"));
-    app.use(express.static("public"));
-    app.use(express.json());
-    app.use(fileUpload());
-    app.use("/blogs", blogRouter);
-    app.use("/auth", authRouter);
-    app.use("/comments", commentRouter);
-    app.listen(proces.env.PORT);
     console.log("Connected to database.");
   })
   .catch((err) => console.log(err));
+
+app.use(cors());
+app.use(morgan("dev"));
+app.use(express.static("public"));
+app.use(express.json());
+app.use(fileUpload());
+app.use("/blogs", blogRouter);
+app.use("/auth", authRouter);
+app.use("/comments", commentRouter);
+app.listen(proces.env.PORT);
