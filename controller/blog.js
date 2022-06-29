@@ -53,28 +53,28 @@ const getAllBlogs = (req, res) => {
     .catch(() => res.status(500).send({ message: "server side error" }));
 };
 
-const saveImage = (req, res) => {
-  if (req.files) {
-    const ext = req.files.file.name.split(".")[1];
-    const allowedExtensions = ["jpg", "png", "jpeg"];
-    if (!allowedExtensions.includes(ext.toLowerCase())) {
-      return res.status(400).send({ message: "Extension not allowed." });
-    }
-    const randomName = Math.random().toString().slice(2, 14);
-    if (!fs.existsSync("./public/images")) {
-      try {
-        fs.mkdirSync("./public/images");
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    const imageUrl = `images/${randomName}.${ext}`;
-    req.files.file.mv("./public/" + imageUrl, (err) => {
-      if (err) return res.status(500).send({ message: "can not save image." });
-      res.send({ imageUrl });
-    });
-  }
-};
+// const saveImage = (req, res) => {
+//   if (req.files) {
+//     const ext = req.files.file.name.split(".")[1];
+//     const allowedExtensions = ["jpg", "png", "jpeg"];
+//     if (!allowedExtensions.includes(ext.toLowerCase())) {
+//       return res.status(400).send({ message: "Extension not allowed." });
+//     }
+//     const randomName = Math.random().toString().slice(2, 14);
+//     if (!fs.existsSync("./public/images")) {
+//       try {
+//         fs.mkdirSync("./public/images");
+//       } catch (err) {
+//         console.log(err);
+//       }
+//     }
+//     const imageUrl = `images/${randomName}.${ext}`;
+//     req.files.file.mv("./public/" + imageUrl, (err) => {
+//       if (err) return res.status(500).send({ message: "can not save image." });
+//       res.send({ imageUrl });
+//     });
+//   }
+// };
 
 const getBlog = (req, res) => {
   Blog.findById(req.params.id)
@@ -187,7 +187,6 @@ const searchBlogs = (req, res) => {
 module.exports = {
   getAllBlogs,
   createBlog,
-  saveImage,
   getBlog,
   updateBlog,
   deleteBlog,

@@ -2,7 +2,6 @@ const express = require("express");
 const {
   getAllBlogs,
   createBlog,
-  saveImage,
   getBlog,
   updateBlog,
   deleteBlog,
@@ -15,7 +14,7 @@ const { authenticateToken, authenticateRole } = require("./authUtils");
 
 const router = express.Router();
 
-router.post("/image", authenticateToken, authenticateRole, saveImage);
+// router.post("/image", authenticateToken, authenticateRole, saveImage);
 router.get("/tag/:tag", getBlogsByTag);
 router.get("/tag/", getAllTags);
 router.get("/search/:input", searchBlogs);
