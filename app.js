@@ -14,7 +14,7 @@ const dbUrl = process.env.DATABASE_URL;
 mongoose
   .connect(dbUrl)
   .then(() => {
-    app.listen(proces.env.PORT);
+    app.listen(process.env.PORT);
     console.log("Connected to database.");
   })
   .catch((err) => console.log(err));
