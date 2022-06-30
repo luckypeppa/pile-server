@@ -12,11 +12,6 @@ const router = express.Router();
 // register user
 router.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
-  // check empty
-  if (!username || !email || !password)
-    return res
-      .status(400)
-      .send({ message: "Username, email, password can not be empty." });
 
   // check password's length
   if (password.length < 12)
@@ -65,17 +60,13 @@ router.post("/register", async (req, res) => {
     });
   } catch (err) {
     console.log("err:", err);
-    res.status(500).send({ message: err.message });
+    res.status(400).send({ message: err.message });
   }
 });
 
 // user login
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  if (!username || !password)
-    return res
-      .status(400)
-      .send({ message: "Username and password can not be empty." });
 
   // find existed user
   const existedUser = await User.findOne({ username: username }).populate(
@@ -89,7 +80,7 @@ router.post("/login", async (req, res) => {
     // compare passwords
     const result = await bcrypt.compare(password, existedUser.hashedPassword);
     if (!result)
-      return res.status(403).json({ message: "Incorrect password." });
+      return res.status(400).json({ message: "Incorrect password." });
 
     await existedUser.populate("role", "name");
     const user = existedUser.toObject();
@@ -112,7 +103,7 @@ router.post("/login", async (req, res) => {
     });
   } catch (err) {
     console.log("err:", err);
-    res.status(500).send({ message: err.message });
+    res.status(400).send({ message: err.message });
   }
 });
 
